@@ -1,17 +1,24 @@
-import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import AccSocket from './src/components/accSocket';
-import {View} from 'react-native';
+import Index from './src/views/principal';
+import Segunda from './src/views/segunda';
 
+const Stack = createStackNavigator();
 export const ws = new WebSocket('ws://0.0.0.0:5001');
+
 const App = () => {
   ws.onopen = () => {
-    ws.send('Conectando al servidor');
-    ws.send('Usuario: mata');
-  };
+  ws.send('Conectando al servidor');
+  ws.send('Usuario: mata');
+ };
   return (
-    <View style={{flex: 1}}>
-      <AccSocket/>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Index" component={Index} options={{ title: 'Pantalla Principal' }} />
+        <Stack.Screen name="Segunda" component={Segunda} options={{ title: 'Juego' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 export default App;
