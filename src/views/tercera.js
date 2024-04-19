@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { style_tercera } from '../styles/style_tercera';
 
-const tercera = () => {
+const Tercera = () => {
     return (
         <View style={style_tercera.divMain}>
             <View style={style_tercera.encabezado}>
@@ -28,4 +28,4 @@ const tercera = () => {
     );
 }
 
-export default tercera;
+export default Tercera;

@@ -2,11 +2,12 @@ import React from 'react';
 import { TextInput, Text, View, TouchableOpacity } from 'react-native';
 import { style_segunda } from '../styles/style_segunda';
 import { useNavigation } from '@react-navigation/native';
+import GameSetup from '../components/gameSetup.js'
 
-const segunda = () => {
+const Segunda = () => {
   const navigation = useNavigation();
   const OnPress = () => {
-    navigation.navigate("tercera");
+    navigation.navigate("Tercera");
   };
   return (
     <View style={style_segunda.divMain}>
@@ -14,16 +15,7 @@ const segunda = () => {
       <View style={style_segunda.encabezado}>
         <Text style={style_segunda.title1}>TetraTilt</Text>
       </View>
-      <View style={style_segunda.whiteBox}>
-        <Text style={style_segunda.title2}>Nombre del jugador</Text>
-        <TextInput
-          style={style_segunda.input}
-          placeholder="Ingresa tu nombre"
-        />
-      </View>
-      <TouchableOpacity style={style_segunda.button} onPress={OnPress}>
-        <Text style={style_segunda.buttonText}>Jugar</Text>
-      </TouchableOpacity>
+    <GameSetup/>
     </View>
     <View style={style_segunda.divFooter}>
       <Text style={style_segunda.textFooter}>
@@ -34,4 +26,4 @@ const segunda = () => {
   );
 };
 
-export default segunda;
+export default Segunda;
