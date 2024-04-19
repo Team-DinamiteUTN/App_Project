@@ -7,61 +7,66 @@ export const style_segunda = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
         justifyContent: 'center',
-    },
-    divMain: {
+      },
+      divMain: {
         flex: 1,
         backgroundColor: '#B3AB91',
-        alignItems: 'center',
-    },
-    divFooter: {
+        justifyContent: 'space-between', // Agregado para separar el contenido y el footer
+      },
+      contentContainer: {
+        alignItems: 'center', // Centrar el contenido horizontalmente
+      },
+      divFooter: {
         width: '100%',
         backgroundColor: '#D3D3D3',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingVertical: 33, // Agregamos padding vertical para asegurarnos de que haya espacio para el contenido
-    },
-    textFooter: {
+        paddingVertical: 33,
+      },
+      textFooter: {
+        width: '80%',
         color: '#3C5473',
         fontSize: 14,
         textAlign: 'center',
-    },
-    title1: {
+      },
+      title1: {
         color: '#FFFFFF',
         textAlign: 'center',
         lineHeight: 73,
         fontSize: 40,
         fontWeight: 'bold',
-    },
-    balanzaImg: {
-        height: 200,
-        borderRadius: 25,
-        width: 250,
-        resizeMode: 'contain',
-        marginTop: 50,
-    },
-    balanzaImg2: {
-        height: 230,
-        borderRadius: 25,
-        width: 250,
-        resizeMode: 'contain',
-        marginTop: 25,
-    },
-    imageContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+      },
+      button: {
         marginTop: 20,
-    },
-    textoIzquierda: {
-        marginRight: 10,
-        fontSize: 16,
+        width: 200,
+        height: 60,
+        borderRadius: 30,
+        backgroundColor: '#3C5473',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      buttonText: {
+        color: '#FFFFFF',
+        fontSize: 20,
+      },
+      whiteBox: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        alignItems: 'center',
+        marginTop: 20,
+      },
+      title2: {
+        fontSize: 18,
         fontWeight: 'bold',
-        color: '#B31412',
-    },
-    textoDerecha: {
-        marginLeft: 10,
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#156412',
-    },
+        marginBottom: 10,
+      },
+      input: {
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 5,
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        width: '100%',
+      },
 });

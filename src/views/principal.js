@@ -7,7 +7,7 @@ const Index = () => {
   const navigation = useNavigation();
 
   const OnPress = () => {
-    navigation.navigate('Segunda'); 
+    navigation.navigate('segunda'); 
   };
 
   return (
