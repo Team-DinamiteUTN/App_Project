@@ -5,6 +5,7 @@ import Index from './src/views/principal';
 import Segunda from './src/views/segunda';
 import Tercera from './src/views/tercera';
 
+
 const Stack = createStackNavigator();
 export const ws = new WebSocket('ws://10.90.40.79:5001');
 
@@ -16,8 +17,9 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Index" component={Index} options={{ title: 'Pantalla Principal' }} />
-        <Stack.Screen name="Segunda" component={Segunda} options={{ title: 'Jugador' }} />
+      <Stack.Screen name="Index" component={Index} options={{ title: 'Pantalla Principal' }} />
+        <Stack.Screen name="Segunda" component={Segunda} options={{ title: 'Jugador' }} />
+    
         <Stack.Screen name="Tercera" component={Tercera} options={{ title: 'Juego' }} />
       </Stack.Navigator>
     </NavigationContainer>
