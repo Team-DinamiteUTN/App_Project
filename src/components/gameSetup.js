@@ -21,7 +21,7 @@ const GameSetup = () => {
         Name: playerName,
         Points: 0
       };
-      await axios.post(${PATHURL}:${PORT}/player, data);
+      await axios.post(`${PATHURL}:${PORT}/player`, data);
       setPlayerName('');
       navigation.navigate('Tercera'); // Navega a la vista "Tercera"
     } catch (error) {
