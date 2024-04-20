@@ -1,14 +1,10 @@
 import React from 'react';
-import { TextInput, Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, } from 'react-native';
 import { style_segunda } from '../styles/style_segunda';
-import { useNavigation } from '@react-navigation/native';
 import GameSetup from '../components/gameSetup.js'
 
 const Segunda = () => {
-  const navigation = useNavigation();
-  const OnPress = () => {
-    navigation.navigate("Tercera");
-  };
+
   return (
     <View style={style_segunda.divMain}>
     <View style={style_segunda.contentContainer}>
