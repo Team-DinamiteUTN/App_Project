@@ -60,6 +60,7 @@ export const style_segunda = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
+        color: "black"
       },
       input: {
         borderWidth: 1,
