@@ -1,12 +1,14 @@
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { style_tercera } from '../styles/style_tercera';
+import AccSocket from '../components/accSocket.js';
 
 const Tercera = () => {
     return (
         <View style={style_tercera.divMain}>
             <View style={style_tercera.encabezado}>
                 <Text style={style_tercera.title1}>TetraTilt</Text>
+                <AccSocket/>
             </View>
 
             <View style={style_tercera.imageContainer}>
