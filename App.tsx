@@ -17,8 +17,9 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Index" component={Index} options={{ title: 'Pantalla Principal' }} />
-        <Stack.Screen name="Segunda" component={Segunda} options={{ title: 'Jugador' }} />
+      <Stack.Screen name="Index" component={Index} options={{ title: 'Pantalla Principal' }} />
+        <Stack.Screen name="Segunda" component={Segunda} options={{ title: 'Jugador' }} />
+    
         <Stack.Screen name="Tercera" component={Tercera} options={{ title: 'Juego' }} />
       </Stack.Navigator>
     </NavigationContainer>
