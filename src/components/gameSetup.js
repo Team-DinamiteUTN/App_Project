@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, TextInput, Button, Text, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import Textarea from 'react-native-textarea';
 import { ws } from '../../App';
 import { style_segunda } from '../styles/style_segunda';
@@ -7,6 +8,11 @@ import { style_segunda } from '../styles/style_segunda';
 const GameSetup = () => {
   const [players, setPlayers] = useState('');
   const [playerName, setPlayerName] = useState('');
+
+  const navigation = useNavigation();
+  const OnPress = () => {
+    navigation.navigate("Tercera");
+  };
 
   ws.onmessage = e => {
     // a message was received
@@ -18,19 +24,20 @@ const GameSetup = () => {
 
    const sendPlayer = () => {
     ws.send(playerName);
+    OnPress();
     setPlayerName('');
   };
 
 //Randomizer function for the players
-  useEffect(() => {
-    if (players.length >= 4) {
-      const shuffledPlayers = players.sort(() => Math.random() - 0.5);
-      ws.send(JSON.stringify({
-        type: 'SET_ORDER',
-        order: shuffledPlayers
-      }));
-    }
-  }, [players]);
+  //useEffect(() => {
+    //if (players.length >= 4) {
+      //const shuffledPlayers = players.sort(() => Math.random() - 0.5);
+      //ws.send(JSON.stringify({
+        //type: 'SET_ORDER',
+        //order: shuffledPlayers
+      //}));
+    //}
+  //}, [players]);
 
   //const sendData = async () => {
     //try {

@@ -51,7 +51,7 @@ export const style_tercera = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 20,
+        marginTop: 0,
     },
     textoIzquierda: {
         marginRight: -18,

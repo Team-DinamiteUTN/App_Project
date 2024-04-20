@@ -6,7 +6,7 @@ import Segunda from './src/views/segunda';
 import Tercera from './src/views/tercera';
 
 const Stack = createStackNavigator();
-export const ws = new WebSocket('ws://0.0.0.0:5001');
+export const ws = new WebSocket('ws://10.90.40.79:5001');
 
 const App = () => {
   ws.onopen = () => {

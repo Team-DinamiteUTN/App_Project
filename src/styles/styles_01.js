@@ -21,7 +21,6 @@ export const style_01 = StyleSheet.create({
     fontSize: 16,
   },
   container: {
-    marginTop: 45,
     padding: 5,
     height: '82%',
     borderColor: '#355DA8',

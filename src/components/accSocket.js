@@ -37,7 +37,6 @@ const AccSocket = () => {
 
   return (
     <View>
-      <Text style={style_01.tit_01}>Acceso al Socket</Text>
       <View style={style_01.banda}>
         <TextInput
           value={mensaje}
@@ -52,16 +51,6 @@ const AccSocket = () => {
           style={style_01.btnEnviar}
           onPress={() => enviarMensaje()}>
           <Text style={style_01.tit_04}> SEND </Text>
-        </TouchableOpacity>
-      </View>
-      <View style={style_01.container}>
-      <GetPlayers/>
-      </View>
-      <View style={style_01.banda}>
-        <TouchableOpacity
-          style={style_01.btnCerrar}
-          onPress={() => cerrarSesion()}>
-          <Text style={style_01.tit_04}> CLOSE SESSION </Text>
         </TouchableOpacity>
       </View>
     </View>
