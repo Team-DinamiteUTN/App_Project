@@ -1,18 +1,16 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import AccSocket from './src/components/accSocket';
+import GameSetup from './src/components/gameSetup';
 import Index from './src/views/principal';
 import Segunda from './src/views/segunda';
 import Tercera from './src/views/tercera';
 
 
 const Stack = createStackNavigator();
-export const ws = new WebSocket('ws://10.90.40.79:5001');
+export const ws = new WebSocket('ws://10.90.41.106:5001');
 
 const App = () => {
   ws.onopen = () => {
-  ws.send('Conectando al servidor');
-  ws.send('Usuario: mata');
  };
   return (
     <NavigationContainer>

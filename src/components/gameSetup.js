@@ -1,22 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 import { ws } from "../../App";
-import { useNavigation } from "@react-navigation/native"; // Importa useNavigation desde react-navigation/native
+import { useNavigation } from "@react-navigation/native"; 
 import { PATHURL, PORT } from "./config/config";
 import { style_segunda } from "../styles/style_segunda";
 
 const GameSetup = () => {
-  const [players, setPlayers] = useState("");
   const [playerName, setPlayerName] = useState("");
-  const navigation = useNavigation(); // Obtiene la función de navegación
+  const [playerCount, setPlayerCount] = useState(0);
+  const [playerRegistered, setPlayerRegistered] = useState(false);
+  const navigation = useNavigation(); 
 
-  ws.onmessage = (e) => {
-    const texto = players + "\n" + e.data;
-    setPlayers(texto);
-    console.log(e.data);
-    console.log(texto);
-  };
+  // Verificar el número de jugadores al montar el componente
+  useEffect(() => {
+    ws.onmessage = (e) => {
+      const playerNameFromServer = e.data;
+      setPlayerRegistered(playerNameFromServer !== "");
+      setPlayerCount(playerCount => playerCount + 1); // Incrementar el contador de jugadores
+      console.log("Jugador registrado:", playerNameFromServer);
+    };
+  }, []);
 
   const sendPlayer = async () => {
     if (!playerName.trim()) {
@@ -24,19 +28,25 @@ const GameSetup = () => {
       Alert.alert("", "El nombre del jugador no puede estar vacío");
       return;
     }
-    ws.send(playerName);
-    setPlayerName("");
 
-    try {
-      const data = {
-        Name: playerName,
-        Points: 0,
-      };
-      await axios.post(`${PATHURL}:${PORT}/player`, data);
+    if (playerCount < 2) {
+      ws.send(playerName);
       setPlayerName("");
-      navigation.navigate("Tercera"); // Navega a la vista "Tercera"
-    } catch (error) {
-      console.error(error);
+
+      try {
+        const data = {
+          Name: playerName,
+          Points: 0,
+        };
+        await axios.post(`${PATHURL}:${PORT}/player`, data);
+        setPlayerName("");
+        navigation.navigate("Tercera"); 
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.log("Ya hay 4 jugadores registrados. No se puede unir más jugadores.");
+      Alert.alert("", "Ya hay 4 jugadores registrados. No se puede unir más jugadores.");
     }
   };
 
