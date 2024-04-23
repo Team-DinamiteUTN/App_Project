@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { View, Animated, PanResponder, Text } from "react-native";
 import { style_dice } from "../styles/style_dice";
+import { ws } from "../../App";
 
 const AssignCube = ({ dados }) => {
+  const [mensajes, setMensajes] = useState("");
   const [counters, setCounters] = useState({
     area1: 0,
     area2: 0,
@@ -10,7 +12,16 @@ const AssignCube = ({ dados }) => {
     area4: 0,
   });
 
+  ws.onmessage = (e) => {
+    // a message was received
+    var wei = Number(e.data);
+
+    console.log(wei);
+  };
+
   const handleDrop = (area, weight) => {
+    var weightMessage = weight.toString();
+    ws.send(weightMessage);
     setCounters((prevCounters) => ({
       ...prevCounters,
       [area]: prevCounters[area] + weight,

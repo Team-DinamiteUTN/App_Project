@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, TextInput, Text, TouchableOpacity, Alert } from "react-native";
 import axios from "axios";
 import { ws } from "../../App";
-import { useNavigation } from "@react-navigation/native"; 
+import { useNavigation } from "@react-navigation/native";
 import { PATHURL, PORT } from "./config/config";
 import { style_segunda } from "../styles/style_segunda";
 
@@ -10,7 +10,7 @@ const GameSetup = () => {
   const [playerName, setPlayerName] = useState("");
   const [playerCount, setPlayerCount] = useState(0);
   const [playerRegistered, setPlayerRegistered] = useState(false);
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
   // Verificar el número de jugadores al montar el componente
   useEffect(() => {
@@ -40,7 +40,7 @@ const GameSetup = () => {
         };
         await axios.post(`${PATHURL}:${PORT}/player`, data);
         setPlayerName("");
-        navigation.navigate("Tercera"); 
+        navigation.navigate("Tercera");
       } catch (error) {
         console.error(error);
       }
