@@ -52,7 +52,7 @@ const AssignCube = ({ dados }) => {
     return diceComponents;
   };
 
-  const determineArea = (x, y) => {
+  const determineArea  = (x, y) => {
     // Determinar el área basada en las coordenadas x e y
 
     // Area1: Parte superior izquierda

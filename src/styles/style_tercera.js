@@ -39,7 +39,6 @@ export const style_tercera = StyleSheet.create({
     width: 250,
     resizeMode: "contain",
     alignItems: "center", // Centra la imagen horizontalmente
-
     marginTop: 50,
   },
   balanzaImg2: {
@@ -71,23 +70,6 @@ export const style_tercera = StyleSheet.create({
     height: 200,
     width: 157,
   },
-  area3: {
-    position: "absolute",
-    top: "10%",
-    left: -45,
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#B31412",
-    borderWidth: 1,
-    borderColor: "#000",
-    paddingVertical: 3,
-    paddingHorizontal: 8,
-    borderRadius: 5,
-    height: 200,
-    width: 157,
-    zIndex: -1,
-  },
-
   area2: {
     position: "absolute", // Posicionamiento absoluto
     top: "10%", // Coloca el texto en la mitad de la altura del contenedor padre
@@ -104,11 +86,26 @@ export const style_tercera = StyleSheet.create({
     width: 157,
     zIndex: -1,
   },
-
+  area3: {
+    position: "absolute",
+    top: "10%",
+    left: -45,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#B31412",
+    borderWidth: 1,
+    borderColor: "#000",
+    paddingVertical: 3,
+    paddingHorizontal: 8,
+    borderRadius: 5,
+    height: 200,
+    width: 157,
+    zIndex: -1,
+  },
   area4: {
-    position: "absolute", // Posicionamiento absoluto
-    top: "10%", // Coloca el texto en la mitad de la altura del contenedor padre
-    right: -45, // Ajusta el texto a la derecha del contenedor padre
+    position: "absolute",
+    top: "10%",
+    right: -45,
     fontSize: 16,
     fontWeight: "bold",
     color: "#156412",
@@ -120,5 +117,19 @@ export const style_tercera = StyleSheet.create({
     height: 200,
     width: 157,
     zIndex: -1,
+  },
+  boton: {
+    marginTop: 20,
+    backgroundColor: '#6A5ACD', // Un color de fondo para tu botón
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  textoBoton: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });

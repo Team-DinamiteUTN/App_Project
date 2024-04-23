@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState,} from 'react';
 import {PATHURL, PORT} from './config/config.js';
 import {style_01} from '../styles/styles_01';
 
