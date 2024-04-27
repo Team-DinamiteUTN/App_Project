@@ -8,7 +8,9 @@ import CelebrationScreen from './src/views/finish.js';
 
 
 const Stack = createStackNavigator();
+
 export const ws = new WebSocket('ws://10.90.40.95:5001');
+
 
 const App = () => {
   ws.onopen = () => {
