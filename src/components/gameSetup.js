@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, TextInput, Text, TouchableOpacity, Alert, ActivityIndicator } from "react-native";
 import axios from "axios";
 import { ws } from "../../App";
-import { useNavigation } from "@react-navigation/native"; 
+import { useNavigation } from "@react-navigation/native";
 import { PATHURL, PORT } from "./config/config";
 import { style_segunda } from "../styles/style_segunda";
 
@@ -13,6 +13,7 @@ const GameSetup = () => {
   const [isReadyToNavigate, setIsReadyToNavigate] = useState(false); // Estado para controlar la navegación
   const [loading, setLoading] = useState(false); // Estado para controlar la carga
   const navigation = useNavigation(); 
+
 
  
   useEffect(() => {
@@ -43,15 +44,19 @@ const GameSetup = () => {
     ws.send(playerName);
     setPlayerName("");
 
-    try {
-      const data = {
-        Name: playerName,
-        Points: 0,
-      };
-      await axios.post(`${PATHURL}:${PORT}/player`, data);
-      setPlayerName("");
-    } catch (error) {
-      console.error(error);
+      try {
+        const data = {
+          Name: playerName,
+          Points: 0,
+        };
+        await axios.post(`${PATHURL}:${PORT}/player`, data);
+        setPlayerName("");
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      console.log("Ya hay 4 jugadores registrados. No se puede unir más jugadores.");
+      Alert.alert("", "Ya hay 4 jugadores registrados. No se puede unir más jugadores.");
     }
   };
 
