@@ -1,16 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import { Image, Text, View, ScrollView } from "react-native";
 import { style_tercera } from "../styles/style_tercera";
 import AsignCubes from "../components/AsignCubes.js";
+import {PATHURL, PORT} from '../components/config/config.js';
+import { ws } from "../../App";
 
 const Tercera = () => {
-  const dados = [
-    { id: 1, color: "red", cantidad: 2, peso: 10 },
-    { id: 2, color: "yellow", cantidad: 2, peso: 15 },
-    { id: 3, color: "green", cantidad: 2, peso: 20 },
-    { id: 4, color: "blue", cantidad: 2, peso: 25 },
-    { id: 5, color: "purple", cantidad: 2, peso: 30 },
-  ];
+
+    ws.onmessage = (e) => {
+        // a message was received
+        console.log(e.data);
+      };
+
+const [dados, setDados] = useState([
+    { id: 1, color: 'red', cantidad: 2, peso: 10 },
+    { id: 2, color: 'yellow', cantidad: 2, peso: 15 },
+    { id: 3, color: 'green', cantidad: 2, peso: 20 },
+    { id: 4, color: 'blue', cantidad: 2, peso: 25 },
+    { id: 5, color: 'purple', cantidad: 2, peso: 30 },
+  ]);
+
+useEffect(() => {
+    fetch(`${PATHURL}:${PORT}/cube`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status_code === 200 && Array.isArray(data.data)) {
+          const updatedDados = dados.map((dado) => {
+            const found = data.data.find((apiCube) => apiCube.Color.toLowerCase() === dado.color);
+            return found ? { ...dado, peso: found.Weight } : dado;
+          });
+          setDados(updatedDados);
+        } else {
+          console.error('Error fetching dados:', data);
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching dados:', error);
+      });
+  }, []);
 
   const pesoPesado1 = "Pesado";
   const pesoLigero1 = "Ligero";

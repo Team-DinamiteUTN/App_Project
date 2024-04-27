@@ -66,7 +66,7 @@ Now that you have successfully run the app, let's modify the connection for the 
 
 # WebSocketRepo
 
->**Note**: *-----GitHub Repo Coming Soon :) ------*
+>**Note**: To know more about the usage and connection of the web socket visit the github repo in https://github.com/Team-DinamiteUTN/WebSocketUsage
 
 ## Step 4: Connect to the WebSocket
 
