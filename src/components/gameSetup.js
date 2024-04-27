@@ -10,22 +10,17 @@ const GameSetup = () => {
   const [playerName, setPlayerName] = useState("");
   const [playerCount, setPlayerCount] = useState(0);
   const [playerRegistered, setPlayerRegistered] = useState(false);
+  const [isReadyToNavigate, setIsReadyToNavigate] = useState(false); // Estado para controlar la navegación
+  const [loading, setLoading] = useState(false); // Estado para controlar la carga
   const navigation = useNavigation(); 
 
-  // Verificar el número de jugadores al montar el componente
+ 
   useEffect(() => {
     ws.onmessage = (e) => {
       const playerNameFromServer = e.data;
       setPlayerRegistered(playerNameFromServer !== "");
-      setPlayerCount((playerCount) => playerCount + 1); // Incrementar el contador de jugadores
+      setPlayerCount(playerCount => playerCount + 1); // Incrementar el contador de jugadores
       console.log("Jugador registrado:", playerNameFromServer);
-
-      if (playerCount === 1) {
-        setWaitingForPlayers(true); // Mostrar alert de espera
-      } else if (playerCount === 2) {
-        setWaitingForPlayers(false); // Ocultar alert de espera
-        Alert.alert("", "¡Listo para jugar!");
-      }
     };
   }, []);
 
@@ -48,41 +43,51 @@ const GameSetup = () => {
     ws.send(playerName);
     setPlayerName("");
 
-      try {
-        const data = {
-          Name: playerName,
-          Points: 0,
-        };
-        await axios.post(`${PATHURL}:${PORT}/player`, data);
-        setPlayerName("");
-        navigation.navigate("Tercera"); 
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      console.log("Ya hay 4 jugadores registrados. No se puede unir más jugadores.");
-      Alert.alert("", "Ya hay 4 jugadores registrados. No se puede unir más jugadores.");
+    try {
+      const data = {
+        Name: playerName,
+        Points: 0,
+      };
+      await axios.post(`${PATHURL}:${PORT}/player`, data);
+      setPlayerName("");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Función para navegar a la tercera pantalla
+  useEffect(() => {
+    if (isReadyToNavigate) {
+      navigation.navigate("Tercera"); 
     }
   }, [isReadyToNavigate]);
 
   return (
     <View style={style_segunda.whiteBox}>
-      <Text style={style_segunda.title2}>Nombre del jugador</Text>
-      <TextInput
-        style={style_segunda.input}
-        placeholder="Ingresa tu nombre"
-        value={playerName}
-        onChangeText={(newName) => {
-          setPlayerName(newName);
-        }}
-      />
-      <TouchableOpacity style={style_segunda.button} onPress={sendPlayer}>
-        <Text style={style_segunda.buttonText}>Jugar</Text>
-      </TouchableOpacity>
+      {loading && (
+        
+        <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+          <ActivityIndicator size="large" color="#0000ff" />
+          <Text style={{ marginTop: 10 }}>Esperando al otro jugador...</Text>
+        </View>
+      )}
+      {!loading && (
+        <>
+          <Text style={style_segunda.title2}>Nombre del jugador</Text>
+          <TextInput
+            style={style_segunda.input}
+            placeholder="Ingresa tu nombre"
+            value={playerName}
+            onChangeText={(newName) => {
+              setPlayerName(newName);
+            }}
+          />
+          <TouchableOpacity style={style_segunda.button} onPress={sendPlayer}>
+            <Text style={style_segunda.buttonText}>Jugar</Text>
+          </TouchableOpacity>
+        </>
+      )}
     </View>
   );
-  
-  
 };
-
 export default GameSetup;
