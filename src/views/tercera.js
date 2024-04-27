@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, Text, View, ScrollView } from "react-native";
 import { style_tercera } from "../styles/style_tercera";
 import AsignCubes from "../components/AsignCubes.js";
+import {PATHURL, PORT} from '../components/config/config.js';
 import { ws } from "../../App";
 
 const Tercera = () => {
@@ -20,7 +21,7 @@ const [dados, setDados] = useState([
   ]);
 
 useEffect(() => {
-    fetch('http://10.90.41.65:3000/cube')
+    fetch(`${PATHURL}:${PORT}/cube`)
       .then((response) => response.json())
       .then((data) => {
         if (data.status_code === 200 && Array.isArray(data.data)) {
