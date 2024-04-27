@@ -7,7 +7,7 @@ import Tercera from './src/views/tercera';
 
 
 const Stack = createStackNavigator();
-export const ws = new WebSocket('ws://10.90.41.106:5001');
+export const ws = new WebSocket('ws://192.168.0.10:5001');
 
 const App = () => {
   ws.onopen = () => {
