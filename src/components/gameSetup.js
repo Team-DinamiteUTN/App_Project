@@ -26,10 +26,13 @@ const GameSetup = () => {
   }, []);
 
  
-  useEffect(() => {
+useEffect(() => {
     if (playerCount >= 2) {
       setIsReadyToNavigate(true);
-      setLoading(false); 
+      setLoading(false);
+    } else if (playerCount >= 4) { // Agregamos esta condición
+      console.log("Ya hay 4 jugadores registrados. No se puede unir más jugadores.");
+      Alert.alert("", "Ya hay 4 jugadores registrados. No se puede unir más jugadores.");
     }
   }, [playerCount]);
 
@@ -54,10 +57,6 @@ const GameSetup = () => {
       } catch (error) {
         console.error(error);
       }
-    } else {
-      console.log("Ya hay 4 jugadores registrados. No se puede unir más jugadores.");
-      Alert.alert("", "Ya hay 4 jugadores registrados. No se puede unir más jugadores.");
-    }
   };
 
   // Función para navegar a la tercera pantalla
