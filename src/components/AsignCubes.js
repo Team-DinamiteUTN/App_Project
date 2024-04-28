@@ -1,10 +1,16 @@
-import React, { useState } from "react";
-import { View, Animated, PanResponder, Text } from "react-native";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Animated,
+  PanResponder,
+  Text,
+  Image,
+  StyleSheet,
+} from "react-native";
 import { style_dice } from "../styles/style_dice";
 import { ws } from "../../App";
 
 const AssignCube = ({ dados }) => {
-  const [mensajes, setMensajes] = useState("");
   const [counters, setCounters] = useState({
     area1: 0,
     area2: 0,
@@ -12,15 +18,28 @@ const AssignCube = ({ dados }) => {
     area4: 0,
   });
 
-  ws.onmessage = (e) => {
-    // a message was received
-    var wei = Number(e.data);
+  useEffect(() => {
+    ws.onmessage = (e) => {
+      const wei = Number(e.data);
+      console.log(wei);
+      const { area1, area2, area3, area4 } = counters;
 
-    console.log(wei);
-  };
+      if (area1 !== area2) {
+        setYellowScale(area1 > area2 ? "izquierda" : "derecha");
+      } else {
+        setYellowScale("nivelada");
+      }
+
+      if (area3 !== area4) {
+        setBlackScale(area3 > area4 ? "izquierda" : "derecha");
+      } else {
+        setBlackScale("nivelada");
+      }
+    };
+  }, [counters]);
 
   const handleDrop = (area, weight) => {
-    var weightMessage = weight.toString();
+    const weightMessage = weight.toString();
     ws.send(weightMessage);
     setCounters((prevCounters) => ({
       ...prevCounters,
@@ -40,7 +59,6 @@ const AssignCube = ({ dados }) => {
           useNativeDriver: false,
         }),
         onPanResponderRelease: (e, gesture) => {
-          // Dejar el cubo en la posición donde fue soltado
           pan.flattenOffset();
           const area = determineArea(gesture.moveX, gesture.moveY);
           handleDrop(area, dice.peso);
@@ -64,35 +82,87 @@ const AssignCube = ({ dados }) => {
   };
 
   const determineArea = (x, y) => {
-    // Determinar el área basada en las coordenadas x e y
-
-    // Area1: Parte superior izquierda
     if (x < 157 && y < 200) return "area1";
-
-    // Area2: Parte superior derecha
     if (x >= 157 && y < 200) return "area2";
-
-    // Area3: Parte inferior izquierda
-    if (x < 157 && y >= 400) return "area3";
-
-    // Area4: Parte inferior derecha
+    if (x < 157 && y >= 200) return "area3";
     if (x >= 157 && y >= 200) return "area4";
   };
 
   return (
-    <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-      {dados.map((dice) => (
-        <View key={dice.id} style={{ margin: 5 }}>
-          {renderDice(dice)}
-        </View>
-      ))}
+    <View style={styles.container}>
+      <View style={styles.diceContainer}>
+        {dados.map((dice) => (
+          <View key={dice.id} style={styles.dice}>
+            {renderDice(dice)}
+          </View>
+        ))}
+      </View>
 
-      <Text style={style_dice.counter}>Area 1: {counters.area1}</Text>
-      <Text style={style_dice.counter}>Area 2: {counters.area2}</Text>
-      <Text style={style_dice.counter}>Area 3: {counters.area3}</Text>
-      <Text style={style_dice.counter}>Area 4: {counters.area4}</Text>
+      <View style={styles.balanzaContainer}>
+        <Image
+          source={
+            counters.area3 !== counters.area4
+              ? counters.area3 > counters.area4
+                ? require("../imgs/izquierda.png")
+                : require("../imgs/derecha.png")
+              : require("../imgs/negra.png")
+          }
+          style={styles.balanzaImageNegra}
+        />
+        <Image
+          source={
+            counters.area1 !== counters.area2
+              ? counters.area1 > counters.area2
+                ? require("../imgs/izquierdaDorada.png")
+                : require("../imgs/derechaDorada.png")
+              : require("../imgs/amarilla.png")
+          }
+          style={styles.balanzaImage}
+        />
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+  },
+  diceContainer: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  dice: {
+    margin: 5,
+  },
+  counter: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  balanzaContainer: {
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  balanzaImageNegra: {
+    width: 150,
+    height: 150,
+    marginVertical: 10,
+    marginBottom: -200,
+    marginLeft: -345,
+    bottom: 0,
+    marginTop: 100,
+  },
+  balanzaImage: {
+    width: 150,
+    height: 150,
+    marginVertical: 10,
+    marginTop: -320,
+    marginLeft: -345,
+  },
+});
 
 export default AssignCube;
